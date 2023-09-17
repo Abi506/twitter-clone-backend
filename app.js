@@ -160,7 +160,7 @@ app.get(
   }
 );
 
-app.get"/user/following/", authenticatingToken, async (request, response) => {
+app.get("/user/following/", authenticatingToken, async (request, response) => {
   const { payload, userDetails } = request;
   const { user_id, name } = userDetails;
   const { username, password } = payload;
