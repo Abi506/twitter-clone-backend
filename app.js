@@ -159,10 +159,17 @@ app.get(
     response.send(returnLatestTweetsArray);
   }
 );
+<<<<<<< HEAD
 //get the people who user follows api 4
 app.get("/user/following/", authenticatingToken, async (request, response) => {
   const { payload } = request;
   const { userDetails } = request;
+=======
+
+app.get("/user/following/", authenticatingToken, async (request, response) => {
+  const { payload, userDetails } = request;
+  const { user_id, name } = userDetails;
+>>>>>>> abdc7c8f45c02a5c6ef8c52f81688fb14198f6a7
   const { username, password } = payload;
   console.log(`userDetails:${userDetails}`);
   const { name, user_id } = userDetails;
