@@ -1,0 +1,110 @@
+#initializing the database 
+
+###
+#creating the account 
+POST http://localhost:3000/register/ 
+Content-Type: application/json
+
+{
+  "username": "abinandhan123445",
+  "password": "abinandhan@tamilnadu",
+  "name": "Abinandhan",
+  "gender": "male"
+}
+
+### 
+#if username already exist the account will not be created
+POST http://localhost:3000/register/ 
+Content-Type: application/json
+
+{
+  "username": "abinandhan123445",
+  "password": "abinandhan@tamilnadu",
+  "name": "Abinandhan",
+  "gender": "male"
+}
+
+### 
+#loggin in 
+#here we are logging with joe biden id 
+#now after login it will provide a token with this token only we can 
+#access other services
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "username":"JoeBiden",    
+  "password":"biden@123"
+}
+###
+#Here i already pasted the authentication token
+#Authentication token is already here i  pasted along with the header
+#Getting the tweets that are posted by joe biden 
+#these all are the tweets posted by joe biden
+GET http://localhost:3000/myTweets/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+#what if user provide invalid token or no token 
+#if user provides invalid token the user is not allowed to use the services
+#it shows invalid token if i provide wrong or no token
+GET http://localhost:3000/myTweets/
+Authorization: Bearer JhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+#Posting the tweets 
+#lets post a tweet
+#lets post this tweet 
+#now the tweet is post 
+#let see the tweet
+POST http://localhost:3000/user/tweets/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+Content-Type: application/json
+
+{
+    "tweet":"Joe biden calls abinandhan for urgent meeting regarding country growth and security"
+}
+
+### 
+#Delete a tweet 
+#delete a tweet by providing the tweet id for each tweet a tweet id is provided
+#i think i have given a wrong tweet id 
+DELETE http://localhost:3000/tweets/2/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+#provides the joe biden following people latest tweets
+#provides the joe biden following people
+# and it also provides joe biden lates tweets feed 
+GET http://localhost:3000/user/tweets/feed/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+#Returns the  of people whom the joe biden follows 
+GET http://localhost:3000/user/following/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+# the list of people who follows the joe biden 
+#here only naredra modi and james cameron follows joe biden 
+GET http://localhost:3000/user/followers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+#get a particular tweet based on tweet_Id
+GET http://localhost:3000/tweets/2/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+#returns who all are liked the user requested tweet
+GET http://localhost:3000/tweets/1/likes/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+#returns who all are replied the user requested tweet
+GET http://localhost:3000/tweets/2/replies/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+
+
+

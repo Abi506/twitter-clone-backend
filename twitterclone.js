@@ -12,6 +12,8 @@ const bcrypt = require("bcrypt");
 let data = null;
 let dbPath = path.join(__dirname, "twitterClone.db");
 
+//database initialization
+
 const databaseAndServerInitialization = async () => {
   try {
     data = await open({
@@ -28,7 +30,8 @@ const databaseAndServerInitialization = async () => {
 };
 databaseAndServerInitialization();
 
-//register
+//creating an account or register
+
 app.post("/register/", async (request, response) => {
   const { username, password, name, gender } = request.body;
   //checking username already exist
@@ -67,6 +70,7 @@ app.post("/register/", async (request, response) => {
 });
 
 //login user
+
 app.post("/login/", async (request, response) => {
   //check user is available in database
   const { username, password } = request.body;
@@ -102,8 +106,8 @@ app.post("/login/", async (request, response) => {
   }
 });
 
-//authentication
-
+//authentication and validation
+// in this phase where the user is verified and the token is given user should need to provide the token for accessing services
 const authenticatingToken = (request, response, next) => {
   let jwtToken;
   const authHeader = request.headers["authorization"];
@@ -132,6 +136,10 @@ const authenticatingToken = (request, response, next) => {
     response.send("Invalid JWT Token");
   }
 };
+
+//provides the user following people latest tweets
+//here it provide the user following people latest tweets
+
 app.get(
   "/user/tweets/feed/",
   authenticatingToken,
@@ -159,7 +167,10 @@ app.get(
     response.send(returnLatestTweetsArray);
   }
 );
-//get the people who user follows api 4
+
+//get the people who user follows
+//in this phase it shows the whom the user follows
+
 app.get("/user/following/", authenticatingToken, async (request, response) => {
   const { payload, userDetails } = request;
   const { user_id, name } = userDetails;
@@ -177,7 +188,9 @@ WHERE follower.follower_user_id=${user_id};
   response.send(userFollowingArray);
 });
 
-// the list of all names of people who follows the user api 5
+// the list of all names of people who follows the user
+//here it shows the who all are follows the user
+
 app.get("/user/followers/", authenticatingToken, async (request, response) => {
   const { payload, userDetails } = request;
   const { user_id, name } = userDetails;
@@ -192,12 +205,14 @@ app.get("/user/followers/", authenticatingToken, async (request, response) => {
   response.send(followerOfUserArray);
 });
 
+//The user requested tweet
+//it provides the user requested tweet like tweet searches and tweet_id etc..
+
 app.get("/tweets/:tweetId/", authenticatingToken, async (request, response) => {
   const { payload, userDetails } = request;
   const { user_id, name } = userDetails;
   const { username, password } = payload;
   const { tweetId } = request.params;
-  //kodutha tweet id oda tweet
   const tweetQuery = `
   SELECT * FROM tweet 
   WHERE tweet_id=${tweetId};
@@ -206,7 +221,7 @@ app.get("/tweets/:tweetId/", authenticatingToken, async (request, response) => {
   console.log("------------");
   console.log("given tweet");
   console.log(tweetArray);
-  //user yara yaru ellam follow pandranga
+
   const userFollowsQuery = `
   SELECT user.name as userFollowingPerson,user.user_id as userFollowingPersonID FROM user INNER JOIN follower ON user.user_id=follower.following_user_id
   WHERE follower.follower_user_id=${user_id}
@@ -217,6 +232,7 @@ app.get("/tweets/:tweetId/", authenticatingToken, async (request, response) => {
   console.log(userFollowsArray);
 
   //user following people tweets
+
   const isUserFollowsPeopleTweetQuery = `
   SELECT tweet.user_id as userFollowingPersonId,tweet.tweet as userFollowingPeopleTweet,tweet.tweet_id FROM follower INNER JOIN tweet ON follower.following_user_id=tweet.user_id
   WHERE follower.follower_user_id=${user_id}
@@ -273,6 +289,9 @@ app.get("/tweets/:tweetId/", authenticatingToken, async (request, response) => {
   }
 });
 
+//displays user requested tweet that are liked by other people
+//in this part where the it displays the who all are the user like the particular tweet
+
 app.get(
   "/tweets/:tweetId/likes/",
   authenticatingToken,
@@ -322,6 +341,9 @@ app.get(
   }
 );
 
+//displays user requested tweet that are replied by other people
+//it displays where who all are replied to the user requested tweet
+
 app.get(
   "/tweets/:tweetId/replies/",
   authenticatingToken,
@@ -351,13 +373,15 @@ app.get(
     }
   }
 );
+
 //user posted tweets
+//using this code where we can post a tweet
+
 app.get("/user/tweets/", authenticatingToken, async (request, response) => {
   const { payload, userDetails } = request;
   const { user_id, name } = userDetails;
   const { username, password } = payload;
   const { tweetId } = request.params;
-  //user posted tweets
   const userPostedTweetsQuery = `
   SELECT * FROM user INNER JOIN tweet ON user.user_id=tweet.user_id 
   WHERE user.user_id=${user_id};
@@ -388,6 +412,8 @@ app.get("/user/tweets/", authenticatingToken, async (request, response) => {
   response.send(userPostedTweetsWithLikesAndRepliesArray);
 });
 
+//post a tweet
+
 app.post("/user/tweets/", authenticatingToken, async (request, response) => {
   const { payload, userDetails } = request;
   const { user_id, name } = userDetails;
@@ -405,6 +431,9 @@ app.post("/user/tweets/", authenticatingToken, async (request, response) => {
   console.log(tweetPostedArray);
   response.send("Created a Tweet");
 });
+
+//delete a tweet
+//we can delete a tweet
 
 app.delete(
   "/tweets/:tweetId/",
@@ -435,6 +464,9 @@ app.delete(
     }
   }
 );
+
+//get my tweets
+//this part shows the user posted tweets
 
 app.get("/myTweets/", authenticatingToken, async (request, response) => {
   const { payload, userDetails } = request;
