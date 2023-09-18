@@ -18,10 +18,47 @@ Content-Type: application/json
   "password":"biden@123"
 }
 
-### return latested posted twit 
+### return user following people latested posted tweets  
 GET http://localhost:3000/user/tweets/feed/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
 
 ###
 GET http://localhost:3000/user/following/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+GET http://localhost:3000/user/followers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+GET http://localhost:3000/tweets/2/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+GET http://localhost:3000/tweets/2/likes/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+GET http://localhost:3000/tweets/2/replies/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+### user posted tweets
+GET http://localhost:3000/user/tweets/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+####
+
+POST http://localhost:3000/user/tweets/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+Content-Type: application/json
+
+{
+    "tweet": "Joe Biden has said that the G20 Summit in India was a success, and that it showed that the group can still drive solutions to the most pressing issues."
+}
+
+###
+DELETE http://localhost:3000/tweets/13/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
+
+###
+GET http://localhost:3000/myTweets/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjk0OTQ3MzcyfQ.HC67ss6knfg9zSFR0j_LLc45-HaHa4Zy0t6ehosLtLg
